@@ -66,10 +66,6 @@ const sessionOptions = {
   },
 };
 
-// app.get("/", (req, res) => {
-//   res.send("Hi , I am root");
-// });
-
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -84,46 +80,17 @@ app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
-  // console.log(res.locals.success);
+
   next();
 });
-
-// app.get("/demouser", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "studentgmail.com",
-//     username: "delta-student",
-//   });
-
-//   let newUser = await User.register(fakeUser, "helloworld");
-//   res.send(newUser);
-// });
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-// app.get("/testlisting", async (req, res) => {
-//   let sampleListing = new Listing({
-//     title: "My new Villa",
-//     description: "Nearby beach",
-//     price: 1299,
-//     location: "Goa",
-//     country: "India",
-//   });
-
-//   await sampleListing.save();
-//   console.log("sample was saved");
-//   res.send("Success");
-// });
-
-// app.all("*", (req, res, next) => {
-//   next(new ExpressError(404, "Page not found"));
-// });
-
 app.use((err, req, res, next) => {
   let { statusCode = 500, message = "Something went wrong" } = err;
   res.status(statusCode).render("error.ejs", { message });
-  // res.status(statusCode).send(message);
 });
 
 app.listen(8080, () => {

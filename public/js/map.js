@@ -6,8 +6,6 @@ const map = new mapboxgl.Map({
   zoom: 9, // starting zoom
 });
 
-console.log(coordinates);
-
 const marker = new mapboxgl.Marker({ color: "red" })
   .setLngLat(coordinates)
   .setPopup(
